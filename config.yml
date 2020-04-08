@@ -1,0 +1,88 @@
+title: Lab Programmation MySQL X DevAPI en Python
+tagline: 'Random numbers, variables, and conditionals'
+description: Apprendre à écrire un programme utilisant MySQL X DevAPI en Python!
+tags:
+  - Python
+template:
+  name: lab-programmation-mysqlsh-en-python
+  repo: lab-programmation-mysqlsh-en-python-gabarit
+  description: Programmation MySQL X DevAPI en Python
+before:
+  - type: createIssue
+    title: Installer son projet
+    body: 01-setup.md
+steps:
+  - title: Installer son projet
+    description: Introduit le project et comment l'installer
+    event: issue_comment
+    link: '{{ repoUrl }}/issues/1'
+    actions:
+      - type: respond
+        with: 01-running.md
+        issue: 1
+        data:
+          id: '%payload.comment.body%'
+  - title: Éxécuter un programme Python 
+    description: Éxécute un programme Python avec la fonction main
+    event: push
+    link: '{{ repoUrl }}/issues/1'
+    actions:
+      - type: respond
+        with: 01-complete.md
+        issue: 1
+      - type: closeIssue
+        issue: 1
+      - type: createIssue
+        title: Utilisation de variables
+        body: 02-variables.md
+  - title: Utiliser les Variables
+    description: Définit l'arbre
+    event: issue_comment
+    link: '{{ repoUrl }}/issues/2'
+    actions:
+      - type: respond
+        with: 02-multiple.md
+        issue: 2
+        data:
+          taille: '%payload.comment.body%'
+  - title: Traverser l'arbre
+    description: Traverser l'arbre à travers une queue
+    event: push
+    link: '{{ repoUrl }}/issues/2'
+    actions:
+      - type: respond
+        with: 02-complete.md
+        issue: 2
+      - type: closeIssue
+        issue: 2
+      - type: createIssue
+        title: Ajout de conditions
+        body: 03-conditionals.md
+  - title: Ajouter des conditions
+    description: Ajoute une saveur a tes réponses avec des conditions
+    event: issue_comment
+    link: '{{ repoUrl }}/issues/3'
+    actions:
+      - type: gate
+        left: '%payload.comment.body%'
+        operator: ==
+        right:  11
+        else:
+          - type: respond
+            with: 03-unlucky.md
+            data:
+              chefs: '%payload.comment.body%'
+      - type: respond
+        with: 03-lucky.md
+        data:
+          chefs: '%payload.comment.body%'
+  - title: Finaliser en évitant les cycles
+    description: Finaliser en évitant les cycles
+    event: push
+    link: '{{ repoUrl }}/issues/3'
+    actions:
+      - type: respond
+        with: 03-complete.md
+        issue: 3
+      - type: closeIssue
+        issue: 3
